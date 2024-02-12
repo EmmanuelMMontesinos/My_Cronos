@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 tk = "*"
+pyinstaller = "*"
 
 [dev-packages]
 
