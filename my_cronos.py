@@ -10,10 +10,12 @@ def cronos():
     ventana_inicio.destroy()
     ventana_cronos = Tk()
     ventana_cronos.title("Cronos")
+    ventana_cronos.config(background="green")
     frm_cronos = ttk.Frame(ventana_cronos, padding=20)
+
     n_digitos = ""
     password_check = ""
-    referencia = ttk.Label(text=n_digitos)
+    referencia = ttk.Label(text=n_digitos, background="green")
 
     def add_n_digitos(texto_boton):
         """Añade un digito si un boton con numero es pulsado"""
@@ -21,6 +23,11 @@ def cronos():
         n_digitos += "*"
         password_check += texto_boton
         referencia.config(text=n_digitos)
+
+    def key_presionada(event):
+        if event.char.isdigit() and "0" <= event.char <= "9":
+            texto_boton = event.char
+            add_n_digitos(texto_boton)
 
     def borrar_pantalla():
         nonlocal password_check, n_digitos
@@ -45,7 +52,7 @@ def cronos():
                ).grid(row=3, column=2)
     referencia.grid(row=4, column=1)
     frm_cronos.pack()
-
+    ventana_cronos.bind('<Key>', key_presionada)
     ventana_cronos.mainloop()
 
 
@@ -58,4 +65,5 @@ ttk.Button(frm, text="Gestión Empleados").grid(column=0, row=1)
 
 ttk.Button(frm, text="Salir", command=ventana_inicio.destroy).grid(
     column=0, row=2)
+
 ventana_inicio.mainloop()
