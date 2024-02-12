@@ -18,12 +18,11 @@ class Trabajador():
         with db.Connection("my_cronos.db") as datos:
             cursor = datos.cursor()
             solicitud = """
-                        CREATE TABLE IF NOT EXISTS trabajadores(
-                        id text(9) primary key,
+                        CREATE TABLE IF NOT EXISTS trabajadores
+                        (id text(9) primary key unique,
                         nombre text(30),
-                        password text(8),
-                        horas_semanales INTEGER,
-                        )
+                        password text(8) unique,
+                        horas_semanales INTEGER)
                         """
             cursor.execute(solicitud)
 
