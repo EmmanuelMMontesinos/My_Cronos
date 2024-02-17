@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter import ttk, messagebox
-import mi_db
+import modulos.mi_db as mi_db
 
 
 """Esta es la ventana del marcador numerico para la password"""

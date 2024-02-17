@@ -1,7 +1,7 @@
 from datetime import datetime
 import tkinter as tk
 from tkinter import ttk, messagebox
-import mi_db
+import modulos.mi_db as mi_db
 
 
 def all_trabajadores():
