@@ -28,13 +28,9 @@ Instalación
 
     Clona este repositorio en tu máquina local:
 
-
-
 `git clone <https://github.com/EmmanuelMMontesinos/My_Cronos>`
 
     Navega al directorio del proyecto:
-
-
 
 `cd my_cronos`
 
