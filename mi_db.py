@@ -87,7 +87,7 @@ class Trabajador():
 
     def mostrar_Trabajador(self) -> list:
         """
-        Añade al trabajador en la DB
+        Muestra a los trabajadores de la DB
         """
         with db.Connection("my_cronos.db") as datos:
             cursor = datos.cursor()
@@ -96,8 +96,24 @@ class Trabajador():
             resultado = cursor.fetchone()
         return resultado
 
+    def mostrar_Todos(self) -> list:
+        with db.connect("my_cronos.db") as datos:
+            cursor = datos.cursor()
+            solicitud = "SELECT * FROM trabajadores"
+            cursor.execute(solicitud)
+            resultado = cursor.fetchall()
+        return resultado
+
     def actualizar_Trabajador(self):
         with db.Connection("my_cronos.db") as datos:
             cursor = datos.cursor()
             solicitud = "UPDATE trabajadores SET turno_activo = ? where id =?"
             cursor.execute(solicitud, (self.entrada, self.dni))
+
+
+def eliminar_Trabajador(dni):
+    with db.Connection("my_cronos.db") as datos:
+        cursor = datos.cursor()
+        solicitud = "DELETE FROM trabajadores where id=?"
+        cursor.execute(solicitud, (dni,))
+    return f"{dni} ha sido borrado"
