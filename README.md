@@ -27,16 +27,16 @@ Instalación
     Puede hacerlo clonando este repositorio.
 
     Clona este repositorio en tu máquina local:
-
-`git clone <https://github.com/EmmanuelMMontesinos/My_Cronos>`
+bash
+git clone <https://github.com/EmmanuelMMontesinos/My_Cronos>
 
     Navega al directorio del proyecto:
-
-`cd my_cronos`
+bash
+cd my_cronos
 
     Ejecuta la aplicación principal:
-
-`python my_cronos.py`
+bash
+python my_cronos.py
 
 Uso
 
