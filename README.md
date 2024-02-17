@@ -26,15 +26,18 @@ Instalación
     Si no quiere descargarse el Relase situado en el apartado de la derecha -->
     Puede hacerlo clonando este repositorio.
 
-    Clona este repositorio en tu máquina local:
+Clona este repositorio en tu máquina local:
+
 Terminal
     git clone <https://github.com/EmmanuelMMontesinos/My_Cronos>
 
     Navega al directorio del proyecto:
+
 Terminal
     cd my_cronos
 
     Ejecuta la aplicación principal:
+
 Terminal
     python my_cronos.py
 
