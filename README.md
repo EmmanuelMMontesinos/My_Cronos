@@ -11,7 +11,7 @@ My_Cronos es una aplicación diseñada para facilitar el control de entrada y sa
 - [Contribuir](#contribuir)
 - [Licencia](#licencia)
 
-## Componentes del Sistema
+## Componentes
 
 ### 1. My_Cronos
 
@@ -29,7 +29,7 @@ La aplicación de Gestión es esencial para administrar la base de datos de trab
     Las contraseñas son para identificar rapidamente al trabajador, NO esta diseñado para matener ningun tipo de
     seguridad con el registro y/o muestra de las mismas.
 
-## Requisitos del Sistema
+## Requisitos
 
     Python 3.10
     Bibliotecas requeridas: tkinter, sqlite3
