@@ -4,8 +4,8 @@ My_Cronos es una aplicación diseñada para facilitar el control de entrada y sa
 
 ## Indice
 
-- [Componentes del Sistema](#componentes_del_sistema)
-- [Requisitos del sistema](#requisitos_del_sistema)
+- [Componentes del Sistema](#componentes)
+- [Requisitos del sistema](#requisitos)
 - [Instalación](#instalación)
 - [Uso](#uso)
 - [Contribuir](#contribuir)
