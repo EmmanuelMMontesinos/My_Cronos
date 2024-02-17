@@ -23,28 +23,30 @@ Requisitos del Sistema
     Bibliotecas requeridas: tkinter, sqlite3
 
 Instalación
+    Si no quiere descargarse el Relase situado en el apartado de la derecha -->
+    Puede hacerlo clonando este repositorio.
 
     Clona este repositorio en tu máquina local:
 
-bash
 
-git clone <https://github.com/EmmanuelMMontesinos/My_Cronos>
+
+`git clone <https://github.com/EmmanuelMMontesinos/My_Cronos>`
 
     Navega al directorio del proyecto:
 
-bash
 
-cd my_cronos
+
+`cd my_cronos`
 
     Ejecuta la aplicación principal:
 
-python my_cronos.py
+`python my_cronos.py`
 
 Uso
 
     Abre la aplicación my_cronos.py para acceder al teclado numérico.
-    Ingresa la contraseña del trabajador (máximo 8 dígitos) y selecciona "Entrada" o "Salida" para registrar el turno.
-    Utiliza la aplicación de Registro para ver el historial de turnos y exportar los datos según sea necesario.
+    Ingresa la contraseña del trabajador (máximo 8 dígitos).
+    Utiliza la aplicación de Registro para ver el historial de turnos.
     Utiliza la aplicación de Gestión para administrar la base de datos de trabajadores, incluyendo la creación, visualización y eliminación de registros.
 
 Contribuir
