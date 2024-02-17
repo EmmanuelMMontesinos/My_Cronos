@@ -41,30 +41,34 @@ def borrar_pantalla():
 
 def mandar_check(check):
     # print(f"{check}")
-    dni, nombre, password, horas, turno_activo = mi_db.Trabajador.check_password(
-        self=mi_db.Trabajador, password=check)
-    empleado = mi_db.Trabajador()
-    empleado.nombre = nombre
-    empleado.dni = dni
-    empleado.password = password
-    empleado.horas_semanales = horas
-    empleado.entrada = turno_activo
-    if turno_activo == None:
-        turno = messagebox.askokcancel(title="Confirmación",
-                                       message=f"{nombre} va ha iniciar turno")
-    else:
-        turno = messagebox.askokcancel(
-            title="Confirmación", message=f"{nombre} va ha cerrar turno")
+    try:
+        dni, nombre, password, horas, turno_activo = mi_db.Trabajador.check_password(
+            self=mi_db.Trabajador, password=check)
+        empleado = mi_db.Trabajador()
+        empleado.nombre = nombre
+        empleado.dni = dni
+        empleado.password = password
+        empleado.horas_semanales = horas
+        empleado.entrada = turno_activo
+        if turno_activo == None:
+            turno = messagebox.askokcancel(title="Confirmación",
+                                           message=f"{nombre} va ha iniciar turno")
+        else:
+            turno = messagebox.askokcancel(
+                title="Confirmación", message=f"{nombre} va ha cerrar turno")
 
-    if turno == True and turno_activo == None:
-        empleado.add_Turno_entrar()
-        messagebox.showinfo(
-            title="Turno Iniciado", message=f"{empleado.nombre} ha iniciado el turno")
+        if turno == True and turno_activo == None:
+            empleado.add_Turno_entrar()
+            messagebox.showinfo(
+                title="Turno Iniciado", message=f"{empleado.nombre} ha iniciado el turno")
 
-    elif turno == True and turno_activo != None:
-        empleado.add_Turno_salir()
-        messagebox.showinfo(
-            title="Turno Terminado", message=f"{empleado.nombre} ha terminado el turno\n")
+        elif turno == True and turno_activo != None:
+            empleado.add_Turno_salir()
+            messagebox.showinfo(
+                title="Turno Terminado", message=f"{empleado.nombre} ha terminado el turno\n")
+    except Exception as e:
+        messagebox.showerror(
+            f"{e}", "No hay trabajadores en la Base de Datos, puede añadirlos desde el programa gestión")
 
 
 def main():

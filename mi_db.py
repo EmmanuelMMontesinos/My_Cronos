@@ -117,3 +117,21 @@ def eliminar_Trabajador(dni):
         solicitud = "DELETE FROM trabajadores where id=?"
         cursor.execute(solicitud, (dni,))
     return f"{dni} ha sido borrado"
+
+
+def mostrar_all_horas():
+    with db.Connection("my_cronos.db") as datos:
+        cursor = datos.cursor()
+        solicitud = "SELECT * FROM turnos"
+        cursor.execute(solicitud)
+        respuesta = cursor.fetchall()
+    return respuesta
+
+
+def mostrar_one_horas(dni):
+    with db.Connection("my_cronos.db") as datos:
+        cursor = datos.cursor()
+        solicitud = "SELECT * FROM turnos where dni = ?"
+        cursor.execute(solicitud, (dni,))
+        respuesta = cursor.fetchall()
+    return respuesta

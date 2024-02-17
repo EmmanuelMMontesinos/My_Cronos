@@ -45,26 +45,27 @@ def show_trabajadores():
     ventana_show.title("Lista Trabajadores")
     lista = []
     frm_show = ttk.Treeview(master=ventana_show,
-                            columns=("DNI", "Nombre", "Password", "Horas Semanales"))
-    frm_show.heading(column=0, text="DNI")
-    frm_show.heading(column=1, text="Nombre")
-    frm_show.heading(column=2, text="Password")
-    frm_show.heading(column=3, text="Horas Semanales")
+                            columns=("Nº Trabajador", "DNI", "Nombre", "Password", "Horas Semanales"), selectmode="extended", show="headings")
+    frm_show.heading(column=0, text="Nº Trabajador")
+    frm_show.heading(column=1, text="DNI")
+    frm_show.heading(column=2, text="Nombre")
+    frm_show.heading(column=3, text="Password")
+    frm_show.heading(column=4, text="Horas Semanales")
     lista = mi_db.Trabajador.mostrar_Todos(lista)
     contador = 0
     for elemento in lista:
         frm_show.insert("", index=contador,
-                        values=(elemento[0], elemento[1], elemento[2], elemento[3]))
+                        values=((contador+1), elemento[0], elemento[1], elemento[2], elemento[3]))
         contador += 1
     for i, item in enumerate(frm_show.get_children()):
         if i % 2 == 0:
             frm_show.item(item, tags=("even",))
         else:
             frm_show.item(item, tags=("odd",))
-    frm_show.column("DNI", width=100, anchor="w")
-    frm_show.column("Nombre", width=100)
-    frm_show.column("Password", width=100)
-    frm_show.column("Horas Semanales", width=100)
+    # frm_show.column("DNI", width=100, anchor="w")
+    # frm_show.column("Nombre", width=100)
+    # frm_show.column("Password", width=100)
+    # frm_show.column("Horas Semanales", width=100)
     frm_show.tag_configure("even", background="#f0f0f0", foreground="black")
     frm_show.tag_configure("odd", background="white", foreground="black")
     frm_show.pack()
@@ -88,7 +89,7 @@ def del_trabajador():
 
 def main():
     ventana_gestion = tk.Tk()
-    ventana_gestion.title("Gestión")
+    ventana_gestion.title("")
     ventana_gestion.iconbitmap("gestion.ico")
     ventana_gestion.configure(highlightbackground="blue", highlightthickness=2)
 
