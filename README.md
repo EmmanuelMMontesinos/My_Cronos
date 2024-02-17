@@ -15,17 +15,17 @@ My_Cronos es una aplicación diseñada para facilitar el control de entrada y sa
 
 ### 1. My_Cronos
 
-![My_Cronos](image.png)
+![My_Cronos](image.png)<br>
 My_Cronos es un teclado numérico que permite a los trabajadores ingresar su contraseña para registrar su entrada o salida de turno. La contraseña tiene un máximo de 8 dígitos y se utiliza para validar la identidad del trabajador.
 
 ### 2. Registro
 
-![Registro](image-1.png)
+![Registro](image-1.png)<br>
 El componente de Registro proporciona diversas opciones para visualizar el historial de turnos de los trabajadores. Tanto globalmente cono por trabajador.
 
 ### 3. Gestión
 
-![Gestión](image-2.png)
+![Gestión](image-2.png)<br>
 La aplicación de Gestión es esencial para administrar la base de datos de trabajadores. Permite crear nuevos trabajadores, ver la información existente de los trabajadores y eliminar registros de la base de datos según sea necesario. Esta funcionalidad es fundamental para el correcto funcionamiento del sistema.
 
 ***<strong><em>IMPORTANTE:</em></strong>***
