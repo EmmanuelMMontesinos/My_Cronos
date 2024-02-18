@@ -1,14 +1,14 @@
 from datetime import datetime
 import tkinter as tk
 from tkinter import ttk, messagebox
-import modulos.mi_db as mi_db
+import modules.mi_db as mi_db
 
 
-def all_trabajadores():
-    """Ventana que Muestra TODOS turnos de TODOS los Trabajadores"""
-    ventana_all = tk.Toplevel()
-    lista = []
-    frm_show = ttk.Treeview(master=ventana_all,
+def all_workers():
+    """Window displaying ALL shifts of ALL Workers"""
+    window_all = tk.Toplevel()
+    list_all_workers = []
+    frm_show = ttk.Treeview(master=window_all,
                             columns=("ID", "DNI", "Entrada", "Salida", "Total"), selectmode="extended", show="headings")
 
     frm_show.heading(column=0, text="Nº Registro")
@@ -19,17 +19,17 @@ def all_trabajadores():
     style = ttk.Style()
     style.configure("Custom.Treeview", background="#f0f0f0",
                     foreground="black", rowheight=25)
-    lista = mi_db.mostrar_all_horas()
-    contador = 0
-    for elemento in lista:
+    list_all_workers = mi_db.show_all_turns_all_workers()
+    count = 0
+    for element in list_all_workers:
         try:
-            frm_show.insert("", index=str(contador),
-                            values=(contador, elemento[1], elemento[2], elemento[3],
-                                    datetime.strptime(elemento[3], "%d/%m/%Y %H:%M:%S") - datetime.strptime(elemento[2], "%d/%m/%Y %H:%M:%S")))
+            frm_show.insert("", index=str(count),
+                            values=(count, element[1], element[2], element[3],
+                                    datetime.strptime(element[3], "%d/%m/%Y %H:%M:%S") - datetime.strptime(element[2], "%d/%m/%Y %H:%M:%S")))
         except TypeError:
             messagebox.showerror("Hay gente en Activo",
                                  "Los turnos que estan activos no aparecerán")
-        contador += 1
+        count += 1
     for i, item in enumerate(frm_show.get_children()):
         if i % 2 == 0:
             frm_show.item(item, tags=("even",))
@@ -44,11 +44,11 @@ def all_trabajadores():
     frm_show.pack()
 
 
-def details_one_trabajadores(dni):
-    """Ventana que MUESTRA los detalles de UN Trabajador"""
-    ventana_one = tk.Toplevel()
-    lista = []
-    frm_show = ttk.Treeview(master=ventana_one,
+def datails_one_worker(dni):
+    """Window that SHOWS the details of ONE Worker"""
+    window_one = tk.Toplevel()
+    list_all_workers = []
+    frm_show = ttk.Treeview(master=window_one,
                             columns=("ID", "DNI", "Entrada", "Salida", "Total"), selectmode="extended", show="headings")
 
     frm_show.heading(column=0, text="Nº Registro")
@@ -59,17 +59,17 @@ def details_one_trabajadores(dni):
     style = ttk.Style()
     style.configure("Custom.Treeview", background="#f0f0f0",
                     foreground="black", rowheight=25)
-    lista = mi_db.mostrar_one_horas(dni)
-    contador = 0
-    for elemento in lista:
+    list_all_workers = mi_db.show_all_turns_one_worker(dni)
+    count = 0
+    for element in list_all_workers:
         try:
-            frm_show.insert("", index=str(contador),
-                            values=(contador, elemento[1], elemento[2], elemento[3],
-                                    datetime.strptime(elemento[3], "%d/%m/%Y %H:%M:%S") - datetime.strptime(elemento[2], "%d/%m/%Y %H:%M:%S")))
+            frm_show.insert("", index=str(count),
+                            values=(count, element[1], element[2], element[3],
+                                    datetime.strptime(element[3], "%d/%m/%Y %H:%M:%S") - datetime.strptime(element[2], "%d/%m/%Y %H:%M:%S")))
         except TypeError:
             messagebox.showerror("Hay gente en Activo",
                                  "Los turnos que estan activos no aparecerán")
-        contador += 1
+        count += 1
     for i, item in enumerate(frm_show.get_children()):
         if i % 2 == 0:
             frm_show.item(item, tags=("even",))
@@ -85,16 +85,18 @@ def details_one_trabajadores(dni):
 
 
 def one_trabajadores():
-    """Ventana de SELECCION de DNI para Mostrar UN Trabajador los turnos"""
+    """SELECT DNI window to show ONE worker the shifts."""
     ventana_sni = tk.Toplevel()
     dni = ttk.Combobox(ventana_sni, background="green")
-    lista_all_2 = []
-    lista_all = mi_db.Trabajador.mostrar_Todos(lista_all_2)
-    lista_all_2.append([x[0] for x in lista_all if x[1] not in lista_all_2])
-    dni.config(values=lista_all_2[0])
+    list_all_workers_all_2 = []
+    list_all_workers_all = mi_db.Worker.show_all(
+        list_all_workers_all_2)
+    list_all_workers_all_2.append(
+        [x[0] for x in list_all_workers_all if x[1] not in list_all_workers_all_2])
+    dni.config(values=list_all_workers_all_2[0])
     dni.pack()
     ttk.Button(ventana_sni, text="Ok",
-               command=lambda dni=dni: details_one_trabajadores(dni.get())).pack()
+               command=lambda dni=dni: datails_one_worker(dni.get())).pack()
     ventana_sni.mainloop()
 
 
@@ -104,7 +106,7 @@ def main():
     ventana.iconbitmap("registro.ico")
 
     ttk.Button(ventana, text="Mostrar Registro Global",
-               command=all_trabajadores).pack()
+               command=all_workers).pack()
     ttk.Button(ventana, text="Mostrar Registro de Trabajador",
                command=one_trabajadores).pack()
     ventana.mainloop()

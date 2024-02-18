@@ -1,74 +1,65 @@
-# My_Cronos - Sistema de Control de Turnos
+# My_Cronos - Shift Control System
 
-My_Cronos es una aplicación diseñada para facilitar el control de entrada y salida de los trabajadores de una empresa. La aplicación consta de tres componentes principales: my_cronos, registro y gestión.
+My_Cronos is an application designed to facilitate the control of entry and exit of workers in a company. The application consists of three main components: my_cronos, registry, and management.
 
-## Indice
+## Index
 
-- [Componentes del Sistema](#componentes)
-- [Requisitos del sistema](#requisitos)
-- [Instalación](#instalación)
-- [Uso](#uso)
-- [Contribuir](#contribuir)
-- [Licencia](#licencia)
+- [System Components](#components)
+- [System Requirements](#requirements)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contribute](#contribute)
+- [License](#license)
 
-## Componentes
+## Components
 
 ### 1. My_Cronos
 
-![My_Cronos](image.png)<br>
-My_Cronos es un teclado numérico que permite a los trabajadores ingresar su contraseña para registrar su entrada o salida de turno. La contraseña tiene un máximo de 8 dígitos y se utiliza para validar la identidad del trabajador.
+My_Cronos is a numeric keypad that allows workers to enter their password to register their shift entry or exit. The password has a maximum of 8 digits and is used to validate the worker's identity.
 
-### 2. Registro
+### 2. Registry
 
-![Registro](image-1.png)<br>
-El componente de Registro proporciona diversas opciones para visualizar el historial de turnos de los trabajadores. Tanto globalmente cono por trabajador.
+The Registry component provides various options for viewing the shift history of workers, both globally and by individual worker.
 
-### 3. Gestión
+### 3. Management
 
-![Gestión](image-2.png)<br>
-La aplicación de Gestión es esencial para administrar la base de datos de trabajadores. Permite crear nuevos trabajadores, ver la información existente de los trabajadores y eliminar registros de la base de datos según sea necesario. Esta funcionalidad es fundamental para el correcto funcionamiento del sistema.
+The Management application is essential for managing the worker database. It allows for creating new workers, viewing existing worker information, and deleting records from the database as needed. This functionality is crucial for the proper functioning of the system.
 
-***<strong><em>IMPORTANTE:</em></strong>***
-    Las contraseñas son para identificar rapidamente al trabajador, NO esta diseñado para matener ningun tipo de
-    seguridad con el registro y/o muestra de las mismas.
+***IMPORTANT:***
+Passwords are used solely for quickly identifying the worker, NOT designed to maintain any kind of security with the registration and/or display of passwords.
 
-## Requisitos
+## Requirements
 
-    Python 3.10
-    Bibliotecas requeridas: tkinter, sqlite3
-Si no quiere descargarse el Relase situado en el apartado de la derecha -->
-Puede hacerlo clonando este repositorio.
+- Python 3.10
+- Required libraries: tkinter, sqlite3
 
-## Instalación
+If you do not want to download the Release located in the right-hand section --> You can do so by cloning this repository.
 
-        git clone https://github.com/EmmanuelMMontesinos/My_Cronos
+## Installation
 
-Navega al directorio del proyecto:
+1. git clone <https://github.com/EmmanuelMMontesinos/My_Cronos>
+2. Navigate to the project directory: cd my_cronos
+3. Run the main application: python my_cronos.py
 
-        cd my_cronos
+## Usage
 
-Ejecuta la aplicación principal:
+After registering workers from the Management application:
 
-        python my_cronos.py
+1. Open the my_cronos.py application to access the numeric keypad.
+2. Enter the worker's password (maximum 8 digits).
+3. Use the Registry application to view the shift history.
+4. Use the Management application to manage the worker database, including creation, viewing, and deletion of records.
 
-## Uso
+## Contribute
 
-Despues de registrar a los trabajadores desde el aplicación Gestión:<br>
-1- Abre la aplicación my_cronos.py para acceder al teclado numérico.<br>
-2- Ingresa la contraseña del trabajador (máximo 8 dígitos).<br>
-3- Utiliza la aplicación de Registro para ver el historial de turnos.<br>
-4- Utiliza la aplicación de Gestión para administrar la base de datos de trabajadores, incluyendo la creación, visualización y eliminación de registros.
+If you wish to contribute to My_Cronos, please follow these steps:
 
-## Contribuir
+1. Fork the repository.
+2. Create a new branch for your feature: git checkout -b new-feature
+3. Make your changes and commit: git commit -m 'Add new feature'
+4. Push your changes to your repository: git push origin new-feature
+5. Send a pull request to the main repository.
 
-Si deseas contribuir a My_Cronos, por favor sigue estos pasos:
+## License
 
-    Haz un fork del repositorio.
-    Crea una nueva rama para tu función: git checkout -b nueva-funcionalidad
-    Haz tus cambios y haz commit: git commit -m 'Agrega nueva funcionalidad'
-    Sube tus cambios a tu repositorio: git push origin nueva-funcionalidad
-    Envía un pull request al repositorio principal.
-
-## Licencia
-
-My_Cronos se distribuye bajo la licencia MIT. Para más detalles, consulta el archivo LICENSE.
+My_Cronos is distributed under the MIT license. For more details, see the LICENSE file.

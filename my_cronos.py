@@ -1,9 +1,9 @@
 from tkinter import *
 from tkinter import ttk, messagebox
-import modulos.mi_db as mi_db
+import modules.mi_db as mi_db
 
 
-"""Esta es la ventana del marcador numerico para la password"""
+"""This is the password dialer window."""
 n_digitos = ""
 password_check = ""
 ventana_cronos = Tk()
@@ -17,7 +17,7 @@ referencia = ttk.Label(ventana_cronos, text=n_digitos, background="green")
 
 
 def add_n_digitos(texto_boton):
-    """Añade un digito si un boton con numero es pulsado"""
+    """Adds a digit if a button with a number is pressed."""
     global n_digitos, password_check
     n_digitos += "*"
     password_check += texto_boton
@@ -32,6 +32,9 @@ def key_presionada(event):
 # Borra la pantalla de referencia para el password
 
 
+ad
+
+
 def borrar_pantalla():
     global password_check, n_digitos
     password_check = ""
@@ -44,9 +47,9 @@ def borrar_pantalla():
 def mandar_check(check):
     # print(f"{check}")
     try:
-        dni, nombre, password, horas, turno_activo = mi_db.Trabajador.check_password(
-            self=mi_db.Trabajador, password=check)
-        empleado = mi_db.Trabajador()
+        dni, nombre, password, horas, turno_activo = mi_db.Worker.check_password(
+            self=mi_db.Worker, password=check)
+        empleado = mi_db.Worker()
         empleado.nombre = nombre
         empleado.dni = dni
         empleado.password = password
@@ -61,13 +64,13 @@ def mandar_check(check):
                 title="Confirmación", message=f"{nombre} va ha cerrar turno")
 
         if turno == True and turno_activo == None:
-            empleado.add_Turno_entrar()
+            empleado.add_turn_entry()
             messagebox.showinfo(
                 title="Turno Iniciado", message=f"{empleado.nombre} ha iniciado el turno")
             borrar_pantalla()
 
         elif turno == True and turno_activo != None:
-            empleado.add_Turno_salir()
+            empleado.add_turn_out()
             messagebox.showinfo(
                 title="Turno Terminado", message=f"{empleado.nombre} ha terminado el turno\n")
             borrar_pantalla()

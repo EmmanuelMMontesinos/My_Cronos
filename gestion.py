@@ -1,72 +1,72 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
-import modulos.mi_db as mi_db
+import modules.mi_db as mi_db
 
 
-def enviar_mi_db(pk):
-    """Gestiona el INGRESO de un NUEVO trabajador a la DB"""
-    nombre, dni, password, horas_semanales = pk
-    solicitud = mi_db.Trabajador()
-    solicitud.nombre = nombre.get()
-    solicitud.dni = dni.get()
-    solicitud.password = password.get()
-    solicitud.horas_semanales = horas_semanales.get()
+def send_mi_db(pk):
+    """Manages the ENTRY of a NEW worker to the DB"""
+    name, dni, password, hour_week = pk
+    request = mi_db.Worker()
+    request.name = name.get()
+    request.dni = dni.get()
+    request.password = password.get()
+    request.hour_week = hour_week.get()
     try:
-        solicitud.add_Trabajador()
+        request.add_worker()
     except Exception as e:
-        mensaje = f"Error al procesar petición, asegúrese de que NO está ya registrado\n{e}"
-        messagebox.showerror("Error", mensaje)
+        response = f"Error al procesar petición, asegúrese de que NO está ya registrado\n{e}"
+        messagebox.showerror("Error", response)
     else:
-        mensaje = f"""Agregado: {solicitud.nombre} DNI: {solicitud.dni}"""
-        messagebox.showinfo("Agregado", mensaje)
+        response = f"""Agregado: {request.name} DNI: {request.dni}"""
+        messagebox.showinfo("Agregado", response)
 
 
-def add_trabajador():
-    """Ventana de Añadir Trabajador"""
-    ventana_add = tk.Toplevel()
-    ventana_add.title("Agregar Trabajador")
-    ttk.Label(ventana_add, text="Nombre").pack()
-    nombre = ttk.Entry(ventana_add)
-    nombre.pack()
-    ttk.Label(ventana_add, text="DNI").pack()
-    dni = ttk.Entry(ventana_add)
+def add_worker():
+    """Add Worker window"""
+    window_add = tk.Toplevel()
+    window_add.title("Agregar Trabajador")
+    ttk.Label(window_add, text="Nombre").pack()
+    name = ttk.Entry(window_add)
+    name.pack()
+    ttk.Label(window_add, text="DNI").pack()
+    dni = ttk.Entry(window_add)
     dni.pack()
-    ttk.Label(ventana_add, text="Password").pack()
-    password = ttk.Entry(ventana_add)
+    ttk.Label(window_add, text="Password").pack()
+    password = ttk.Entry(window_add)
     password.pack()
-    ttk.Label(ventana_add, text="Horas Semanales").pack()
-    horas_semanales = ttk.Entry(ventana_add)
-    horas_semanales.pack()
-    ttk.Button(ventana_add, text="Agregar", command=lambda pk=(
-        nombre, dni, password, horas_semanales): enviar_mi_db(pk)).pack()
-    ttk.Button(ventana_add, text="Salir", command=ventana_add.destroy).pack()
+    ttk.Label(window_add, text="Horas Semanales").pack()
+    hour_week = ttk.Entry(window_add)
+    hour_week.pack()
+    ttk.Button(window_add, text="Agregar", command=lambda pk=(
+        name, dni, password, hour_week): send_mi_db(pk)).pack()
+    ttk.Button(window_add, text="Salir", command=window_add.destroy).pack()
 
 
-def show_trabajadores():
-    """Ventana de Mostrar TODOS los Trabajadores"""
-    ventana_show = tk.Toplevel()
-    ventana_show.title("Lista Trabajadores")
-    lista = []
-    frm_show = ttk.Treeview(master=ventana_show,
-                            columns=("Nº Trabajador", "DNI", "Nombre", "Password", "Horas Semanales"), selectmode="extended", show="headings")
+def show_workers():
+    """window of Show ALL Workers"""
+    window_show = tk.Toplevel()
+    window_show.title("list_workers Trabajadores")
+    list_workers = []
+    frm_show = ttk.Treeview(master=window_show,
+                            columns=("Nº Trabajador", "DNI", "name", "Password", "Horas Semanales"), selectmode="extended", show="headings")
     frm_show.heading(column=0, text="Nº Trabajador")
     frm_show.heading(column=1, text="DNI")
-    frm_show.heading(column=2, text="Nombre")
+    frm_show.heading(column=2, text="name")
     frm_show.heading(column=3, text="Password")
     frm_show.heading(column=4, text="Horas Semanales")
-    lista = mi_db.Trabajador.mostrar_Todos(lista)
-    contador = 0
-    for elemento in lista:
-        frm_show.insert("", index=contador,
-                        values=((contador+1), elemento[0], elemento[1], elemento[2], elemento[3]))
-        contador += 1
+    list_workers = mi_db.Worker.show_all(list_workers)
+    count = 0
+    for element in list_workers:
+        frm_show.insert("", index=count,
+                        values=((count+1), element[0], element[1], element[2], element[3]))
+        count += 1
     for i, item in enumerate(frm_show.get_children()):
         if i % 2 == 0:
             frm_show.item(item, tags=("even",))
         else:
             frm_show.item(item, tags=("odd",))
     # frm_show.column("DNI", width=100, anchor="w")
-    # frm_show.column("Nombre", width=100)
+    # frm_show.column("name", width=100)
     # frm_show.column("Password", width=100)
     # frm_show.column("Horas Semanales", width=100)
     frm_show.tag_configure("even", background="#f0f0f0", foreground="black")
@@ -74,39 +74,39 @@ def show_trabajadores():
     frm_show.pack()
 
 
-def eliminar(dni):
-    """ELIMINAR trabajador"""
+def delete(dni):
+    """delete worker"""
     dni = dni.get()
-    resultado = mi_db.eliminar_Trabajador(dni)
-    print(resultado)
+    response = mi_db.delete_worker(dni)
+    print(response)
 
 
-def del_trabajador():
-    """Ventana para ELIMINAR Trabajador por un DNI"""
-    ventana_del = tk.Toplevel()
-    ventana_del.title("Eliminar Trabajador")
-    ttk.Label(ventana_del, text="DNI del trabajador").pack()
-    dni = tk.Entry(ventana_del)
+def del_worker():
+    """window to delete Worker for a DNI"""
+    window_del = tk.Toplevel()
+    window_del.title("Eliminar Trabajador")
+    ttk.Label(window_del, text="DNI del trabajador").pack()
+    dni = tk.Entry(window_del)
     dni.pack()
-    ttk.Button(ventana_del, text="OK",
-               command=lambda dni=dni: eliminar(dni)).pack()
+    ttk.Button(window_del, text="OK",
+               command=lambda dni=dni: delete(dni)).pack()
 
 
 def main():
-    """Ventana GESTION"""
-    ventana_gestion = tk.Tk()
-    ventana_gestion.title("")
-    ventana_gestion.iconbitmap("gestion.ico")
-    ventana_gestion.configure(highlightbackground="blue", highlightthickness=2)
+    """window main"""
+    window_gestion = tk.Tk()
+    window_gestion.title("")
+    window_gestion.iconbitmap("gestion.ico")
+    window_gestion.configure(highlightbackground="blue", highlightthickness=2)
 
-    ttk.Button(ventana_gestion, text="Agregar Trabajador",
-               command=add_trabajador).pack(expand=True)
-    ttk.Button(ventana_gestion, text="Mostrar Todos los Trabajadores",
-               command=show_trabajadores).pack(expand=True)
-    ttk.Button(ventana_gestion, text="Eliminar Trabajador",
-               command=del_trabajador).pack(expand=True)
+    ttk.Button(window_gestion, text="Agregar Trabajador",
+               command=add_worker).pack(expand=True)
+    ttk.Button(window_gestion, text="Mostrar Todos los Trabajadores",
+               command=show_workers).pack(expand=True)
+    ttk.Button(window_gestion, text="Eliminar Trabajador",
+               command=del_worker).pack(expand=True)
 
-    ventana_gestion.mainloop()
+    window_gestion.mainloop()
 
 
 if __name__ == "__main__":
