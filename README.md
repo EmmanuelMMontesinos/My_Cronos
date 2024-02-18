@@ -61,7 +61,7 @@ Despues de registrar a los trabajadores desde el programa Gestión:
 
 ## Contribuir
 
-Si deseas contribuir a My_Cronos, por favor sigue estos pasos:
+Si deseas contribuir a My_Cronos, por favor sigue estos pasos:<br>
 
     Haz un fork del repositorio.
     Crea una nueva rama para tu función: git checkout -b nueva-funcionalidad
