@@ -53,7 +53,7 @@ Ejecuta la aplicación principal:
 
 ## Uso
 
-Despues de registrar a los trabajadores desde el programa Gestión:
+Despues de registrar a los trabajadores desde el programa Gestión:<br>
 1- Abre la aplicación my_cronos.py para acceder al teclado numérico.<br>
 2- Ingresa la contraseña del trabajador (máximo 8 dígitos).<br>
 3- Utiliza la aplicación de Registro para ver el historial de turnos.<br>
@@ -61,7 +61,7 @@ Despues de registrar a los trabajadores desde el programa Gestión:
 
 ## Contribuir
 
-Si deseas contribuir a My_Cronos, por favor sigue estos pasos:<br>
+Si deseas contribuir a My_Cronos, por favor sigue estos pasos:
 
     Haz un fork del repositorio.
     Crea una nueva rama para tu función: git checkout -b nueva-funcionalidad
