@@ -53,6 +53,7 @@ def mandar_check(check):
         if turno_activo == None:
             turno = messagebox.askokcancel(title="Confirmación",
                                            message=f"{nombre} va ha iniciar turno")
+
         else:
             turno = messagebox.askokcancel(
                 title="Confirmación", message=f"{nombre} va ha cerrar turno")
@@ -61,11 +62,13 @@ def mandar_check(check):
             empleado.add_Turno_entrar()
             messagebox.showinfo(
                 title="Turno Iniciado", message=f"{empleado.nombre} ha iniciado el turno")
+            borrar_pantalla()
 
         elif turno == True and turno_activo != None:
             empleado.add_Turno_salir()
             messagebox.showinfo(
                 title="Turno Terminado", message=f"{empleado.nombre} ha terminado el turno\n")
+            borrar_pantalla()
     except Exception as e:
         messagebox.showerror(
             f"{e}", "No hay trabajadores en la Base de Datos, puede añadirlos desde el programa gestión")

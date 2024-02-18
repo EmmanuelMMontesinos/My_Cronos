@@ -1,15 +1,6 @@
 import sqlite3 as db
 from datetime import datetime
 
-fecha = datetime.now()
-year = fecha.year
-mes = fecha.month
-dia = fecha.day
-hora = fecha.hour
-minutos = fecha.minute
-segundos = fecha.second
-stamp = f"{dia}/{mes}/{year} {hora}:{minutos}:{segundos}"
-
 
 class Trabajador():
     def __init__(self) -> None:
@@ -47,6 +38,14 @@ class Trabajador():
             cursor.execute(solicitud)
 
     def add_Turno_entrar(self):
+        fecha = datetime.now()
+        year = fecha.year
+        mes = fecha.month
+        dia = fecha.day
+        hora = fecha.hour
+        minutos = fecha.minute
+        segundos = fecha.second
+        stamp = f"{dia}/{mes}/{year} {hora}:{minutos}:{segundos}"
         stamp_1 = stamp
         with db.Connection("my_cronos.db") as datos:
             cursor = datos.cursor()
@@ -59,6 +58,14 @@ class Trabajador():
         self.actualizar_Trabajador()
 
     def add_Turno_salir(self):
+        fecha = datetime.now()
+        year = fecha.year
+        mes = fecha.month
+        dia = fecha.day
+        hora = fecha.hour
+        minutos = fecha.minute
+        segundos = fecha.second
+        stamp = f"{dia}/{mes}/{year} {hora}:{minutos}:{segundos}"
         with db.Connection("my_cronos.db") as datos:
             cursor = datos.cursor()
             solicitud = "UPDATE turnos SET salida = ? where id = ?"

@@ -53,6 +53,7 @@ Ejecuta la aplicación principal:
 
 ## Uso
 
+Despues de registrar a los trabajadores desde el programa Gestión:
 1- Abre la aplicación my_cronos.py para acceder al teclado numérico.<br>
 2- Ingresa la contraseña del trabajador (máximo 8 dígitos).<br>
 3- Utiliza la aplicación de Registro para ver el historial de turnos.<br>
