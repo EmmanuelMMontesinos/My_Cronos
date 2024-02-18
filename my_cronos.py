@@ -29,6 +29,8 @@ def key_presionada(event):
         texto_boton = event.char
         add_n_digitos(texto_boton)
 
+# Borra la pantalla de referencia para el password
+
 
 def borrar_pantalla():
     global password_check, n_digitos

@@ -1,6 +1,8 @@
 import sqlite3 as db
 from datetime import datetime
 
+# clase que gestiona el registro el la DB
+
 
 class Trabajador():
     def __init__(self) -> None:
@@ -38,6 +40,7 @@ class Trabajador():
             cursor.execute(solicitud)
 
     def add_Turno_entrar(self):
+        """Hace una entrada en la db de Ingreso en turno"""
         fecha = datetime.now()
         year = fecha.year
         mes = fecha.month
@@ -58,6 +61,7 @@ class Trabajador():
         self.actualizar_Trabajador()
 
     def add_Turno_salir(self):
+        """Hace una entrada en la db de Salida de turno"""
         fecha = datetime.now()
         year = fecha.year
         mes = fecha.month
@@ -104,12 +108,14 @@ class Trabajador():
         return resultado
 
     def mostrar_Todos(self) -> list:
+        """Muestra una lista de TODOS los Trabajadores"""
         with db.connect("my_cronos.db") as datos:
             cursor = datos.cursor()
             solicitud = "SELECT * FROM trabajadores"
             cursor.execute(solicitud)
             resultado = cursor.fetchall()
         return resultado
+# Por implementar
 
     def actualizar_Trabajador(self):
         with db.Connection("my_cronos.db") as datos:
@@ -119,6 +125,7 @@ class Trabajador():
 
 
 def eliminar_Trabajador(dni):
+    """BORRA una entrada de Trabajador"""
     with db.Connection("my_cronos.db") as datos:
         cursor = datos.cursor()
         solicitud = "DELETE FROM trabajadores where id=?"
@@ -127,6 +134,7 @@ def eliminar_Trabajador(dni):
 
 
 def mostrar_all_horas():
+    """Muestra TODOS los turmos de TODOS los Trabajadores"""
     with db.Connection("my_cronos.db") as datos:
         cursor = datos.cursor()
         solicitud = "SELECT * FROM turnos"
@@ -136,6 +144,7 @@ def mostrar_all_horas():
 
 
 def mostrar_one_horas(dni):
+    """Muestra TODOS los turnos de UN Trabajador"""
     with db.Connection("my_cronos.db") as datos:
         cursor = datos.cursor()
         solicitud = "SELECT * FROM turnos where dni = ?"

@@ -4,6 +4,7 @@ import modulos.mi_db as mi_db
 
 
 def enviar_mi_db(pk):
+    """Gestiona el INGRESO de un NUEVO trabajador a la DB"""
     nombre, dni, password, horas_semanales = pk
     solicitud = mi_db.Trabajador()
     solicitud.nombre = nombre.get()
@@ -21,6 +22,7 @@ def enviar_mi_db(pk):
 
 
 def add_trabajador():
+    """Ventana de Añadir Trabajador"""
     ventana_add = tk.Toplevel()
     ventana_add.title("Agregar Trabajador")
     ttk.Label(ventana_add, text="Nombre").pack()
@@ -41,6 +43,7 @@ def add_trabajador():
 
 
 def show_trabajadores():
+    """Ventana de Mostrar TODOS los Trabajadores"""
     ventana_show = tk.Toplevel()
     ventana_show.title("Lista Trabajadores")
     lista = []
@@ -72,12 +75,14 @@ def show_trabajadores():
 
 
 def eliminar(dni):
+    """ELIMINAR trabajador"""
     dni = dni.get()
     resultado = mi_db.eliminar_Trabajador(dni)
     print(resultado)
 
 
 def del_trabajador():
+    """Ventana para ELIMINAR Trabajador por un DNI"""
     ventana_del = tk.Toplevel()
     ventana_del.title("Eliminar Trabajador")
     ttk.Label(ventana_del, text="DNI del trabajador").pack()
@@ -88,6 +93,7 @@ def del_trabajador():
 
 
 def main():
+    """Ventana GESTION"""
     ventana_gestion = tk.Tk()
     ventana_gestion.title("")
     ventana_gestion.iconbitmap("gestion.ico")

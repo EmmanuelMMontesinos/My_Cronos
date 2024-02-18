@@ -5,6 +5,7 @@ import modulos.mi_db as mi_db
 
 
 def all_trabajadores():
+    """Ventana que Muestra TODOS turnos de TODOS los Trabajadores"""
     ventana_all = tk.Toplevel()
     lista = []
     frm_show = ttk.Treeview(master=ventana_all,
@@ -44,6 +45,7 @@ def all_trabajadores():
 
 
 def details_one_trabajadores(dni):
+    """Ventana que MUESTRA los detalles de UN Trabajador"""
     ventana_one = tk.Toplevel()
     lista = []
     frm_show = ttk.Treeview(master=ventana_one,
@@ -83,6 +85,7 @@ def details_one_trabajadores(dni):
 
 
 def one_trabajadores():
+    """Ventana de SELECCION de DNI para Mostrar UN Trabajador los turnos"""
     ventana_sni = tk.Toplevel()
     dni = ttk.Combobox(ventana_sni, background="green")
     lista_all_2 = []
