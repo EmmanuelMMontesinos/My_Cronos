@@ -12,30 +12,30 @@ class Worker():
         self.init_Db()
         self.name = ""
         self.dni = ""
-        self.password = ""
-        self.hours_semanales = 40
+        self.turn_id_entry = ""
+        self.hours_week = 40
         self.history_turns = []
-        self.entrada = None
+        self.entry = None
 
     def init_Db(self):
         """Start or check the database my_cronos.db"""
         with db.Connection("my_cronos.db") as datos:
             cursor = datos.cursor()
             request = """
-                        CREATE TABLE IF NOT EXISTS trabajadores
+                        CREATE TABLE IF NOT EXISTS workers
                         (id text(9) primary key unique,
-                        nombre text(30),
-                        password text(8) unique,
-                        hours_semanales INTEGER,
-                        turno_activo text(50))
+                        name text(30),
+                        turn_id_entry text(8) unique,
+                        hours_week INTEGER,
+                        turn_activate text(50))
                         """
             cursor.execute(request)
             request = """
-                        CREATE TABLE IF NOT EXISTS turnos
+                        CREATE TABLE IF NOT EXISTS turns
                         (id INTEGER primary key autoincrement,
                         dni text(9),
-                        entrada text,
-                        salida text)
+                        entry text,
+                        out text)
                         """
             cursor.execute(request)
 
@@ -52,9 +52,9 @@ class Worker():
         stamp_1 = stamp
         with db.Connection("my_cronos.db") as datos:
             cursor = datos.cursor()
-            request = "INSERT INTO turnos(dni,entrada) VALUES(?,?)"
+            request = "INSERT INTO turns(dni,entry) VALUES(?,?)"
             cursor.execute(request, (self.dni, stamp_1))
-            request = "SELECT id FROM turnos where entrada = ?"
+            request = "SELECT id FROM turns where entry = ?"
             cursor.execute(request, (stamp_1,))
             id_tur = cursor.fetchone()
         self.entry = id_tur[0]
@@ -72,17 +72,17 @@ class Worker():
         stamp_1 = f"{day}/{mes}/{year} {hour}:{minute}:{second}"
         with db.Connection("my_cronos.db") as datos:
             cursor = datos.cursor()
-            request = "UPDATE turnos SET salida = ? where id = ?"
-            cursor.execute(request, (stamp_1, self.entrada))
+            request = "UPDATE turns SET out = ? where id = ?"
+            cursor.execute(request, (stamp_1, self.entry))
         self.entry = None
         self.update_worker()
 
-    def check_password(self, password) -> str:
-        """Returns the worker with that password"""
+    def check_id_turn(self, id_turn) -> str:
+        """Returns the worker with that turn_id_entry"""
         with db.Connection("my_cronos.db") as datos:
             cursor = datos.cursor()
-            request = "SELECT * FROM trabajadores WHERE password = ?"
-            cursor.execute(request, (password,))
+            request = "SELECT * FROM workers WHERE turn_id_entry = ?"
+            cursor.execute(request, (id_turn,))
             response = cursor.fetchone()
         return response
 
@@ -92,9 +92,9 @@ class Worker():
         """
         with db.Connection("my_cronos.db") as datos:
             cursor = datos.cursor()
-            request = "INSERT INTO trabajadores(id,nombre,password,hours_semanales) VALUES(?,?,?,?)"
+            request = "INSERT INTO workers(id,name,turn_id_entry,hours_week) VALUES(?,?,?,?)"
             cursor.execute(request, (self.dni, self.name,
-                           self.password, self.hours_semanales))
+                           self.turn_id_entry, self.hours_week))
 
     def show_worker(self) -> list:
         """
@@ -102,7 +102,7 @@ class Worker():
         """
         with db.Connection("my_cronos.db") as datos:
             cursor = datos.cursor()
-            request = "SELECT * FROM trabajadores WHERE id = ?"
+            request = "SELECT * FROM workers WHERE id = ?"
             cursor.execute(request, (self.dni,))
             response = cursor.fetchone()
         return response
@@ -111,7 +111,7 @@ class Worker():
         """Displays a list of ALL Workers"""
         with db.connect("my_cronos.db") as datos:
             cursor = datos.cursor()
-            request = "SELECT * FROM trabajadores"
+            request = "SELECT * FROM workers"
             cursor.execute(request)
             response = cursor.fetchall()
         return response
@@ -120,7 +120,7 @@ class Worker():
     def update_worker(self):
         with db.Connection("my_cronos.db") as datos:
             cursor = datos.cursor()
-            request = "UPDATE trabajadores SET turno_activo = ? where id =?"
+            request = "UPDATE workers SET turn_activate = ? where id =?"
             cursor.execute(request, (self.entry, self.dni))
 
 
@@ -128,7 +128,7 @@ def delete_worker(dni):
     """DELETE a Worker entry"""
     with db.Connection("my_cronos.db") as datos:
         cursor = datos.cursor()
-        request = "DELETE FROM trabajadores where id=?"
+        request = "DELETE FROM workers where id=?"
         cursor.execute(request, (dni,))
     return f"{dni} ha sido borrado"
 
@@ -137,7 +137,7 @@ def show_all_turns_all_workers():
     """Displays ALL the turmos of ALL Workers"""
     with db.Connection("my_cronos.db") as datos:
         cursor = datos.cursor()
-        request = "SELECT * FROM turnos"
+        request = "SELECT * FROM turns"
         cursor.execute(request)
         response = cursor.fetchall()
     return response
@@ -147,7 +147,7 @@ def show_all_turns_one_worker(dni):
     """Displays ALL shifts of ONE Worker"""
     with db.Connection("my_cronos.db") as datos:
         cursor = datos.cursor()
-        request = "SELECT * FROM turnos where dni = ?"
+        request = "SELECT * FROM turns where dni = ?"
         cursor.execute(request, (dni,))
         response = cursor.fetchall()
     return response

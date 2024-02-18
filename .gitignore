@@ -7,3 +7,4 @@ my_cronos.spec
 registro.spec
 modulos/__pycache__/__init__.cpython-311.pyc
 modulos/__pycache__/mi_db.cpython-311.pyc
+modules/__pycache__/mi_db.cpython-311.pyc

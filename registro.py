@@ -86,8 +86,8 @@ def datails_one_worker(dni):
 
 def one_trabajadores():
     """SELECT DNI window to show ONE worker the shifts."""
-    ventana_sni = tk.Toplevel()
-    dni = ttk.Combobox(ventana_sni, background="green")
+    window_sni = tk.Toplevel()
+    dni = ttk.Combobox(window_sni, background="green")
     list_all_workers_all_2 = []
     list_all_workers_all = mi_db.Worker.show_all(
         list_all_workers_all_2)
@@ -95,21 +95,21 @@ def one_trabajadores():
         [x[0] for x in list_all_workers_all if x[1] not in list_all_workers_all_2])
     dni.config(values=list_all_workers_all_2[0])
     dni.pack()
-    ttk.Button(ventana_sni, text="Ok",
+    ttk.Button(window_sni, text="Ok",
                command=lambda dni=dni: datails_one_worker(dni.get())).pack()
-    ventana_sni.mainloop()
+    window_sni.mainloop()
 
 
 def main():
-    ventana = tk.Tk()
-    ventana.title("")
-    ventana.iconbitmap("registro.ico")
+    window = tk.Tk()
+    window.title("")
+    window.iconbitmap("registro.ico")
 
-    ttk.Button(ventana, text="Mostrar Registro Global",
+    ttk.Button(window, text="Mostrar Registro Global",
                command=all_workers).pack()
-    ttk.Button(ventana, text="Mostrar Registro de Trabajador",
+    ttk.Button(window, text="Mostrar Registro de Trabajador",
                command=one_trabajadores).pack()
-    ventana.mainloop()
+    window.mainloop()
 
 
 if __name__ == "__main__":

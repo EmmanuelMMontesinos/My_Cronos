@@ -3,76 +3,71 @@ from tkinter import ttk, messagebox
 import modules.mi_db as mi_db
 
 
-"""This is the password dialer window."""
-n_digitos = ""
-password_check = ""
-ventana_cronos = Tk()
-ventana_cronos.title("Cronos")
-ventana_cronos.iconbitmap("cronos.ico")
-ventana_cronos.config(background="green")
-frm_cronos = ttk.Frame(ventana_cronos, padding=20)
+"""This is the turn_id_activate dialer window."""
+digit_reference = ""
+turn_id_check = ""
+window_cronos = Tk()
+window_cronos.title("Cronos")
+window_cronos.iconbitmap("cronos.ico")
+window_cronos.config(background="green")
+frm_cronos = ttk.Frame(window_cronos, padding=20)
 
-referencia = ttk.Label(ventana_cronos, text=n_digitos, background="green")
-# Ventana de Cronos
+refernce = ttk.Label(window_cronos, text=digit_reference, background="green")
+# Window of Cronos
 
 
-def add_n_digitos(texto_boton):
+def add_digit_reference(text_button):
     """Adds a digit if a button with a number is pressed."""
-    global n_digitos, password_check
-    n_digitos += "*"
-    password_check += texto_boton
-    referencia.config(text=n_digitos)
+    global digit_reference, turn_id_check
+    digit_reference += "*"
+    turn_id_check += text_button
+    refernce.config(text=digit_reference)
 
 
-def key_presionada(event):
+def key_press(event):
     if event.char.isdigit() and "0" <= event.char <= "9":
-        texto_boton = event.char
-        add_n_digitos(texto_boton)
-
-# Borra la pantalla de referencia para el password
-
-
-ad
+        text_button = event.char
+        add_digit_reference(text_button)
 
 
 def borrar_pantalla():
-    global password_check, n_digitos
-    password_check = ""
-    n_digitos = ""
-    referencia.config(text=n_digitos)
+    global turn_id_check, digit_reference
+    turn_id_check = ""
+    digit_reference = ""
+    refernce.config(text=digit_reference)
 
 # Desde aqui comprueba el id(dni)
 
 
-def mandar_check(check):
+def send_check(check):
     # print(f"{check}")
     try:
-        dni, nombre, password, horas, turno_activo = mi_db.Worker.check_password(
-            self=mi_db.Worker, password=check)
-        empleado = mi_db.Worker()
-        empleado.nombre = nombre
-        empleado.dni = dni
-        empleado.password = password
-        empleado.horas_semanales = horas
-        empleado.entrada = turno_activo
-        if turno_activo == None:
+        dni, name, turn_id_activate, hours, turn_on = mi_db.Worker.check_id_turn(
+            self=mi_db.Worker, id_turn=check)
+        worker_person = mi_db.Worker()
+        worker_person.name = name
+        worker_person.dni = dni
+        worker_person.turn_id_activate = turn_id_activate
+        worker_person.hours_semanales = hours
+        worker_person.entry = turn_on
+        if turn_on == None:
             turno = messagebox.askokcancel(title="Confirmación",
-                                           message=f"{nombre} va ha iniciar turno")
+                                           message=f"{name} va ha iniciar turno")
 
         else:
             turno = messagebox.askokcancel(
-                title="Confirmación", message=f"{nombre} va ha cerrar turno")
+                title="Confirmación", message=f"{name} va ha cerrar turno")
 
-        if turno == True and turno_activo == None:
-            empleado.add_turn_entry()
+        if turno == True and turn_on == None:
+            worker_person.add_turn_entry()
             messagebox.showinfo(
-                title="Turno Iniciado", message=f"{empleado.nombre} ha iniciado el turno")
+                title="Turno Iniciado", message=f"{worker_person.name} ha iniciado el turno")
             borrar_pantalla()
 
-        elif turno == True and turno_activo != None:
-            empleado.add_turn_out()
+        elif turno == True and turn_on != None:
+            worker_person.add_turn_out()
             messagebox.showinfo(
-                title="Turno Terminado", message=f"{empleado.nombre} ha terminado el turno\n")
+                title="Turno Terminado", message=f"{worker_person.name} ha terminado el turno\n")
             borrar_pantalla()
     except Exception as e:
         messagebox.showerror(
@@ -80,24 +75,24 @@ def mandar_check(check):
 
 
 def main():
-    global n_digitos, password_check
+    global digit_reference, turn_id_check
 
     for i in range(3):
         for j in range(1, 4):
-            texto_boton = str(i*3+j)
-            ttk.Button(ventana_cronos, text=texto_boton, command=lambda tb=texto_boton: add_n_digitos(
+            text_button = str(i*3+j)
+            ttk.Button(window_cronos, text=text_button, command=lambda tb=text_button: add_digit_reference(
                 tb)).grid(row=i, column=j-1)
-    texto_boton = "0"
-    ttk.Button(ventana_cronos, text=texto_boton, command=lambda tb=texto_boton: add_n_digitos(
+    text_button = "0"
+    ttk.Button(window_cronos, text=text_button, command=lambda tb=text_button: add_digit_reference(
         tb)).grid(row=3, column=1)
-    ttk.Button(ventana_cronos, text="OK", command=lambda pc=password_check: mandar_check(
-        password_check)).grid(row=3, column=0)
-    ttk.Button(ventana_cronos, text="Borrar", command=lambda: borrar_pantalla()
+    ttk.Button(window_cronos, text="OK", command=lambda pc=turn_id_check: send_check(
+        turn_id_check)).grid(row=3, column=0)
+    ttk.Button(window_cronos, text="Borrar", command=lambda: borrar_pantalla()
                ).grid(row=3, column=2)
-    referencia.grid(row=4, column=1)
+    refernce.grid(row=4, column=1)
     # frm_cronos.pack()
 
-    ventana_cronos.mainloop()
+    window_cronos.mainloop()
 
 
 if __name__ == "__main__":

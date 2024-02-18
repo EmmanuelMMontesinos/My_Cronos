@@ -5,11 +5,11 @@ import modules.mi_db as mi_db
 
 def send_mi_db(pk):
     """Manages the ENTRY of a NEW worker to the DB"""
-    name, dni, password, hour_week = pk
+    name, dni, turn_id_entry, hour_week = pk
     request = mi_db.Worker()
     request.name = name.get()
     request.dni = dni.get()
-    request.password = password.get()
+    request.turn_id_entry = turn_id_entry.get()
     request.hour_week = hour_week.get()
     try:
         request.add_worker()
@@ -31,14 +31,14 @@ def add_worker():
     ttk.Label(window_add, text="DNI").pack()
     dni = ttk.Entry(window_add)
     dni.pack()
-    ttk.Label(window_add, text="Password").pack()
-    password = ttk.Entry(window_add)
-    password.pack()
+    ttk.Label(window_add, text="Identificador de Turno").pack()
+    turn_id_entry = ttk.Entry(window_add)
+    turn_id_entry.pack()
     ttk.Label(window_add, text="Horas Semanales").pack()
     hour_week = ttk.Entry(window_add)
     hour_week.pack()
     ttk.Button(window_add, text="Agregar", command=lambda pk=(
-        name, dni, password, hour_week): send_mi_db(pk)).pack()
+        name, dni, turn_id_entry, hour_week): send_mi_db(pk)).pack()
     ttk.Button(window_add, text="Salir", command=window_add.destroy).pack()
 
 
@@ -48,11 +48,11 @@ def show_workers():
     window_show.title("list_workers Trabajadores")
     list_workers = []
     frm_show = ttk.Treeview(master=window_show,
-                            columns=("Nº Trabajador", "DNI", "name", "Password", "Horas Semanales"), selectmode="extended", show="headings")
+                            columns=("Nº Trabajador", "DNI", "name", "turn_id_entry", "Horas Semanales"), selectmode="extended", show="headings")
     frm_show.heading(column=0, text="Nº Trabajador")
     frm_show.heading(column=1, text="DNI")
     frm_show.heading(column=2, text="name")
-    frm_show.heading(column=3, text="Password")
+    frm_show.heading(column=3, text="Identificador de turno")
     frm_show.heading(column=4, text="Horas Semanales")
     list_workers = mi_db.Worker.show_all(list_workers)
     count = 0
@@ -67,7 +67,7 @@ def show_workers():
             frm_show.item(item, tags=("odd",))
     # frm_show.column("DNI", width=100, anchor="w")
     # frm_show.column("name", width=100)
-    # frm_show.column("Password", width=100)
+    # frm_show.column("turn_id_entry", width=100)
     # frm_show.column("Horas Semanales", width=100)
     frm_show.tag_configure("even", background="#f0f0f0", foreground="black")
     frm_show.tag_configure("odd", background="white", foreground="black")
