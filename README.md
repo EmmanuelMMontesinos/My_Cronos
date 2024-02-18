@@ -41,7 +41,7 @@ Puede hacerlo clonando este repositorio.
 
 ## Instalación
 
-        git clone <https://github.com/EmmanuelMMontesinos/My_Cronos>
+        git clone https://github.com/EmmanuelMMontesinos/My_Cronos
 
 Navega al directorio del proyecto:
 
