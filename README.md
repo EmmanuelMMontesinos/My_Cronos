@@ -15,17 +15,17 @@ My_Cronos is an application designed to facilitate the control of entry and exit
 
 ### 1. My_Cronos
 
-![My_Cronos](image.png)
+![My_Cronos](image.png)<br>
 My_Cronos is a numeric keypad that allows workers to enter their id turn entry to register their shift entry or exit. The id turn entry has a maximum of 8 digits and is used to validate the worker's identity.
 
 ### 2. Registry
 
-![Registry](image-1.png)
+![Registry](image-1.png)<br>
 The Registry component provides various options for viewing the shift history of workers, both globally and by individual worker.
 
 ### 3. Management
 
-![Management](image-2.png)
+![Management](image-2.png)<br>
 The Management application is essential for managing the worker database. It allows for creating new workers, viewing existing worker information, and deleting records from the database as needed. This functionality is crucial for the proper functioning of the system.
 
 ## Requirements
