@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 tk = "*"
 pyinstaller = "*"
+flask = "*"
+flask-httpauth = "*"
 
 [dev-packages]
 
