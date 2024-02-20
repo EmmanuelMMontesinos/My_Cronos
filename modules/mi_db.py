@@ -1,7 +1,6 @@
 import sqlite3 as db
 from datetime import datetime
-
-# clase que gestiona el registro el la DB
+import bcrypt
 
 
 class Worker():
@@ -23,19 +22,19 @@ class Worker():
             cursor = datos.cursor()
             request = """
                         CREATE TABLE IF NOT EXISTS workers
-                        (id text(9) primary key unique,
-                        name text(30),
-                        turn_id_entry text(8) unique,
+                        (id charfield(9) primary key unique,
+                        name charfield(30),
+                        turn_id_entry charfield(8) unique,
                         hours_week INTEGER,
-                        turn_activate text(50))
+                        turn_activate charfield(50))
                         """
             cursor.execute(request)
             request = """
                         CREATE TABLE IF NOT EXISTS turns
                         (id INTEGER primary key autoincrement,
-                        dni text(9),
-                        entry text,
-                        out text)
+                        dni charfield(9),
+                        entry timestamp,
+                        out timestamp)
                         """
             cursor.execute(request)
 
@@ -117,6 +116,7 @@ class Worker():
         return response
 
     def update_worker_turn(self) -> None:
+        """Update the turn_id field to change status. This is a supplementary function"""
         with db.Connection("my_cronos.db") as datos:
             cursor = datos.cursor()
             request = "UPDATE workers SET turn_activate = ? where id =?"
@@ -124,6 +124,7 @@ class Worker():
 
     def update_worker(self, update) -> None:
         with db.Connection("my_cronos.db") as datos:
+            """Updates a worker in the workers table"""
             cursor = datos.cursor()
             request = """UPDATE workers SET
                         id = ?,
@@ -133,6 +134,39 @@ class Worker():
                         """
             cursor.execute(request, (update["dni"], update["name"],
                            update["turn_id_entry"], update["hours_week"], self.dni))
+
+
+class Staff(Worker):
+    def __init__(self) -> None:
+        super().__init__()
+        self.init_Db_Staff()
+        self.password = "cronos"
+
+    def init_Db_Staff(self) -> None:
+        self.init_Db()
+        with db.Connection("my_cronos.db") as datos:
+            cursor = datos.cursor()
+            request = """
+                    CREATE IF NOT EXISTS staff(
+                    id charfield(9) primary key unique,
+                    password charfield(128) NOT null
+                    )
+                    """
+            cursor.execute(request)
+
+    def build_object(self):
+        atributes = self.show_worker()
+        self.name,self.dni,self.turn_id_entry,self.hours_week,self.password = atributes
+        print(self.name)
+
+    def hash_password(self) -> str:
+        salt = bcrypt.gensalt()
+        hased_password = bcrypt.hashpw(self.password.encode("utf-8"), salt)
+        return salt + hased_password
+
+
+    def check_password(self,password) -> bool:
+
 
 
 def delete_worker(dni):
