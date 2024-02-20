@@ -147,26 +147,44 @@ class Staff(Worker):
         with db.Connection("my_cronos.db") as datos:
             cursor = datos.cursor()
             request = """
-                    CREATE IF NOT EXISTS staff(
+                    CREATE TABLE IF NOT EXISTS staff(
                     id charfield(9) primary key unique,
                     password charfield(128) NOT null
                     )
                     """
             cursor.execute(request)
 
-    def build_object(self):
-        atributes = self.show_worker()
-        self.name,self.dni,self.turn_id_entry,self.hours_week,self.password = atributes
-        print(self.name)
+    def add_staff(self) -> str:
+        """Add to an existing worker a staff account with
+        the same "dni" and with a password stored in the encrypted db."""
+        password = self.hash_password()
+        with db.Connection("my_cronos.db") as datos:
+            cursor = datos.cursor()
+            request = "INSERT INTO staff(id,password) VALUES(?,?)"
+            cursor.execute(request, (self.dni, password))
+        return f"{self.dni} ha sido añadido como staff"
+
+    def all_staff(self) -> list:
+        """Displays all employees with staff rank and their encrypted password."""
+        with db.Connection("my_cronos.db") as datos:
+            cursor = datos.cursor()
+            request = "SELECT * FROM staff"
+            cursor.execute(request)
+            response = cursor.fetchall()
+        return response
 
     def hash_password(self) -> str:
+        """Encrypt the password for storage in the DB"""
         salt = bcrypt.gensalt()
         hased_password = bcrypt.hashpw(self.password.encode("utf-8"), salt)
         return salt + hased_password
 
-
-    def check_password(self,password) -> bool:
-
+    def check_password(self) -> bool:
+        """Compares a password to an encrypted password"""
+        list_staff = self.all_staff()
+        for element in list_staff:
+            if self.dni == element[0]:
+                return bcrypt.checkpw(self.password.encode('utf-8'), element[1][29:])
 
 
 def delete_worker(dni):

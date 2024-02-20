@@ -6,13 +6,13 @@ import modules.mi_db as my_db
 server = Flask(__name__)
 auth = HTTPBasicAuth()
 
-staff_users = {"cronos": "ZEUS"}
-
 
 @auth.verify_password
 def verify_password(user, password) -> bool:
     """Function to authenticate staff users"""
-    return user in staff_users.keys() and staff_users[user] == password
+    request = my_db.Staff()
+    request.dni, request.password = user, password
+    return request.check_password()
 
 
 @server.route("/workers/", methods=['GET'])
