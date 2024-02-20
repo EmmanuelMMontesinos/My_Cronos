@@ -29,7 +29,7 @@ def send_one_worker(dni) -> jsonify:
 
 @server.route("/new_worker/", methods=['POST'])
 @auth.login_required
-def add_worker():
+def add_worker() -> str:
     new_worker = request.json
     worker = my_db.Worker()
     worker.name, worker.dni, worker.turn_id_entry, worker.hours_week = new_worker[
@@ -38,12 +38,18 @@ def add_worker():
     return f"{worker.name} añadido correctamente"
 
 
-@server.route("/update/<dni>")
+@server.route("/workers/update/<dni>", methods=["PUT"])
 @auth.login_required
-def update_worker(dni):
+def update_worker(dni) -> str:
     updated_worker = request.json
     worker = my_db.Worker()
     worker.dni = dni
+    workers_db = worker.show_all()
+    if worker.dni in [dni[0] for dni in workers_db]:
+        worker.update_worker(updated_worker)
+        return f"{updated_worker['name']} ha sido actualizado"
+    else:
+        return f"{dni} no existe en la Base de Datos"
 
 
 server.run(host="0.0.0.0")
