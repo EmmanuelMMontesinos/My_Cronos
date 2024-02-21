@@ -3,7 +3,7 @@ from tkinter import ttk, messagebox
 import modules.mi_db as mi_db
 
 
-def send_mi_db(pk, update=False):
+def send_mi_db(pk):
     """Manages the ENTRY of a NEW worker to the DB"""
     name, dni, turn_id_entry, hour_week = pk
     request = mi_db.Worker()
@@ -11,19 +11,25 @@ def send_mi_db(pk, update=False):
     request.dni = dni.get()
     request.turn_id_entry = turn_id_entry.get()
     request.hour_week = hour_week.get()
-    if update == True:
-        request_dict = {"name": request.name, "dni": request.dni,
-                        "turn_id_entry": request.turn_id_entry, "hours_week": request.hours_week}
-        request.update_worker(request_dict)
+    try:
+        request.add_worker()
+    except Exception as e:
+        response = f"Error al procesar petición, asegúrese de que NO está ya registrado\n{e}"
+        messagebox.showerror("Error", response)
     else:
-        try:
-            request.add_worker()
-        except Exception as e:
-            response = f"Error al procesar petición, asegúrese de que NO está ya registrado\n{e}"
-            messagebox.showerror("Error", response)
-        else:
-            response = f"""Agregado: {request.name} DNI: {request.dni}"""
-            messagebox.showinfo("Agregado", response)
+        response = f"""Agregado: {request.name} DNI: {request.dni}"""
+        messagebox.showinfo("Agregado", response)
+
+
+def send_mi_db_update(pk, dni):
+    request = mi_db.Worker()
+    request.dni = dni
+    name, dni, turn_id_entry, hours_week = pk
+    update = {"name": name.get(), "dni": dni.get(),
+              "turn_id_entry": turn_id_entry.get(), "hours_week": hours_week.get()}
+    request.update_worker(update)
+    messagebox.showinfo(title="Trabajador modificado",
+                        message=f"{name.get()} {dni.get()} ha sido actualizado")
 
 
 def add_worker():
@@ -56,7 +62,7 @@ def show_workers():
                             columns=("Nº Trabajador", "DNI", "Nombre", "turn_id_entry", "Horas Semanales"), selectmode="extended", show="headings")
     frm_show.heading(column=0, text="Nº Trabajador")
     frm_show.heading(column=1, text="DNI")
-    frm_show.heading(column=2, text="name")
+    frm_show.heading(column=2, text="Nombre")
     frm_show.heading(column=3, text="Identificador de turno")
     frm_show.heading(column=4, text="Horas Semanales")
     list_workers = mi_db.Worker.show_all(list_workers)
@@ -79,7 +85,7 @@ def show_workers():
     frm_show.pack()
 
 
-def delete(dni) -> None:
+def delete(dni, window) -> None:
     """delete worker"""
     dni = dni.get()
     worker = mi_db.Worker()
@@ -91,10 +97,12 @@ def delete(dni) -> None:
             print(response)
             messagebox.showinfo(title="Borrado Exitoso",
                                 message=f"{dni} ha sido borrado")
+            window.destroy()
             return
 
     messagebox.showerror(
         title="Error", message=f"{dni} NO existe en la Base de Datos")
+    window.destroy()
 
 
 def del_worker():
@@ -105,31 +113,41 @@ def del_worker():
     dni = tk.Entry(window_del)
     dni.pack()
     ttk.Button(window_del, text="OK",
-               command=lambda dni=dni: delete(dni)).pack()
+               command=lambda dni=dni: delete(dni, window_del)).pack()
 
 
-def upgrade_worker(dni):
+def upgrade_worker(dni, window):
+    dni_old = dni.get()
+    if dni_old == "":
+        return messagebox.showerror(message="Introduzca un DNI")
     window_upgrade = tk.Toplevel()
     worker = mi_db.Worker()
     worker.dni = dni.get()
-    result = worker.show_worker()
-    ttk.Label(window_upgrade, text="Nombre").pack()
-    name = ttk.Entry(window_upgrade)
-    name.pack()
-    ttk.Label(window_upgrade, text="DNI").pack()
-    dni = ttk.Entry(window_upgrade)
-    dni.pack()
-    ttk.Label(window_upgrade, text="Identificador de Turno").pack()
-    turn_id_entry = ttk.Entry(
-        window_upgrade)
-    turn_id_entry.pack()
-    ttk.Label(window_upgrade, text="Horas Semanales").pack()
-    hour_week = ttk.Entry(window_upgrade)
-    hour_week.pack()
-    ttk.Button(window_upgrade, text="Agregar", command=lambda pk=(
-        name, dni, turn_id_entry, hour_week): send_mi_db(pk, True)).pack()
-    ttk.Button(window_upgrade, text="Salir",
-               command=window_upgrade.destroy).pack()
+    try:
+        result = worker.show_worker()
+        ttk.Label(window_upgrade, text="Nombre").pack()
+        name = ttk.Entry(window_upgrade)
+        name.pack()
+        ttk.Label(window_upgrade, text="DNI").pack()
+        dni = ttk.Entry(window_upgrade)
+        dni.pack()
+        ttk.Label(window_upgrade, text="Identificador de Turno").pack()
+        turn_id_entry = ttk.Entry(
+            window_upgrade)
+        turn_id_entry.pack()
+        ttk.Label(window_upgrade, text="Horas Semanales").pack()
+        hour_week = ttk.Entry(window_upgrade)
+        hour_week.pack()
+        ttk.Button(window_upgrade, text="Agregar", command=lambda pk=(
+            name, dni, turn_id_entry, hour_week): send_mi_db_update(pk, dni_old)).pack()
+        ttk.Button(window_upgrade, text="Salir",
+                   command=window_upgrade.destroy).pack()
+        window.destroy()
+    except Exception as e:
+        messagebox.showerror(
+            message=f"{dni_old} no existe en la Base de Datos\n{e}")
+        window_upgrade.destroy()
+        window.destroy()
 
 
 def update_worker():
@@ -138,8 +156,9 @@ def update_worker():
     ttk.Label(window_update, text="DNI del trabajador").pack()
     dni = tk.Entry(window_update)
     dni.pack()
+
     ttk.Button(window_update, text="OK", command=lambda dni=dni:
-               upgrade_worker(dni)).pack()
+               upgrade_worker(dni, window_update)).pack()
 
 
 def main():
