@@ -105,6 +105,7 @@ class Worker():
             request = "SELECT * FROM workers WHERE id = ?"
             cursor.execute(request, (self.dni,))
             response = cursor.fetchone()
+        self.dni, self.name, self.turn_id_entry, self.hours_week, self.entry = response
         return response
 
     def show_all(self) -> list:
