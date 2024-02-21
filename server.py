@@ -60,7 +60,26 @@ def update_worker(dni) -> str:
 @server.route("/turns/", methods=["GET"])
 @auth.login_required
 def show_all_turns() -> jsonify:
+    """Displays all shifts of all workers if requested with staff permissions."""
     return jsonify(my_db.show_all_turns_all_workers())
 
 
-server.run(host="0.0.0.0")
+@server.route("/turns/<dni>", methods=["GET"])
+@auth.login_required
+def show_one_turn(dni):
+    """Displays all shifts of a worker by specifying the employee's ID number as long as he/she has staff rights"""
+    worker = my_db.Worker()
+    worker.dni = dni
+    return jsonify(my_db.show_all_turns_one_worker(worker.dni))
+
+
+@server.route("/delete/<dni>", methods=["DELETE"])
+@auth.login_required
+def del_worker(dni) -> str:
+    """Removes the specified worker as long as you have staff permissions"""
+    worker = my_db.Worker()
+    worker.dni = dni
+    return worker.delete_worker()
+
+
+server.run(host="0.0.0.0", port=8000)

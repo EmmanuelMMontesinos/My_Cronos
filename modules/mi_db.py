@@ -135,6 +135,14 @@ class Worker():
             cursor.execute(request, (update["dni"], update["name"],
                            update["turn_id_entry"], update["hours_week"], self.dni))
 
+    def delete_worker(self):
+        """DELETE a Worker entry"""
+        with db.Connection("my_cronos.db") as datos:
+            cursor = datos.cursor()
+            request = "DELETE FROM workers where id=?"
+            cursor.execute(request, (self.dni,))
+        return f"{self.dni} ha sido borrado"
+
 
 class Staff(Worker):
     def __init__(self) -> None:
@@ -185,15 +193,6 @@ class Staff(Worker):
         for element in list_staff:
             if self.dni == element[0]:
                 return bcrypt.checkpw(self.password.encode('utf-8'), element[1][29:])
-
-
-def delete_worker(dni):
-    """DELETE a Worker entry"""
-    with db.Connection("my_cronos.db") as datos:
-        cursor = datos.cursor()
-        request = "DELETE FROM workers where id=?"
-        cursor.execute(request, (dni,))
-    return f"{dni} ha sido borrado"
 
 
 def show_all_turns_all_workers():

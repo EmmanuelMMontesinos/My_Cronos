@@ -35,6 +35,9 @@ def add_staff():
             update_staff()
             print(dict(__staff))
             return
+        else:
+            print("Error: El usuario debe existir en la base de datos y no ser ya staff")
+            input("Enter para salir")
 
 
 def show_staff() -> str:
@@ -56,4 +59,4 @@ def perfile_staff() -> None:
         print("Error: No consta como staff")
 
 
-perfile_staff()
+add_staff()
