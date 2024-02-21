@@ -74,11 +74,22 @@ def show_workers():
     frm_show.pack()
 
 
-def delete(dni):
+def delete(dni) -> None:
     """delete worker"""
     dni = dni.get()
-    response = mi_db.delete_worker(dni)
-    print(response)
+    worker = mi_db.Worker()
+    worker.dni = dni
+    elements = worker.show_all()
+    for element in elements:
+        if dni in element[0]:
+            response = worker.delete_worker()
+            print(response)
+            messagebox.showinfo(title="Borrado Exitoso",
+                                message=f"{dni} ha sido borrado")
+            return
+
+    messagebox.showerror(
+        title="Error", message=f"{dni} NO existe en la Base de Datos")
 
 
 def del_worker():

@@ -1,7 +1,7 @@
 import modules.mi_db as my_db
 
 
-__staff = my_db.Staff.all_staff(self=my_db.Staff())
+__staff = {}
 
 
 def update_staff() -> dict:

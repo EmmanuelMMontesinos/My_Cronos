@@ -1,6 +1,7 @@
 import sqlite3 as db
 from datetime import datetime
 import bcrypt
+import staff
 
 
 class Worker():
@@ -137,6 +138,10 @@ class Worker():
 
     def delete_worker(self):
         """DELETE a Worker entry"""
+        if check_staff(self.dni):
+            user = Staff()
+            user.dni = self.dni
+            user.delete_staff()
         with db.Connection("my_cronos.db") as datos:
             cursor = datos.cursor()
             request = "DELETE FROM workers where id=?"
@@ -221,3 +226,10 @@ def show_all_turns_one_worker(dni):
         cursor.execute(request, (dni,))
         response = cursor.fetchall()
     return response
+
+
+def check_staff(dni) -> bool:
+    if dni in dict(Staff.all_staff(Staff())).keys():
+        return True
+    else:
+        return False
