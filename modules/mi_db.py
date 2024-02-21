@@ -172,6 +172,14 @@ class Staff(Worker):
             cursor.execute(request, (self.dni, password))
         return f"{self.dni} ha sido añadido como staff"
 
+    def delete_staff(self):
+        """DELETE a staff entry"""
+        with db.Connection("my_cronos.db") as datos:
+            cursor = datos.cursor()
+            request = "DELETE FROM staff where id=?"
+            cursor.execute(request, (self.dni,))
+        return f"{self.dni} ha sido borrado"
+
     def all_staff(self) -> list:
         """Displays all employees with staff rank and their encrypted password."""
         with db.Connection("my_cronos.db") as datos:

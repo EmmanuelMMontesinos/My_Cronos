@@ -13,13 +13,15 @@ def check_worker(dni) -> list:
     worker = my_db.Worker()
     worker.dni = dni
     result = worker.show_worker()
+    if result == None:
+        return False
     if dni == result[0]:
         return True
     else:
         return False
 
 
-def add_staff():
+def add_staff() -> None:
     print("Esta es una funcion para staff del negocio,\nsi usted no es parte del mismo podria estar incurriendo en un delito.")
     print("1-Continuar 2-Cerrar programa")
     confirmation = input("")
@@ -37,12 +39,21 @@ def add_staff():
             return
         else:
             print("Error: El usuario debe existir en la base de datos y no ser ya staff")
-            input("Enter para salir")
+            input("Enter para continuar")
 
 
 def show_staff() -> str:
     for element in __staff:
         print(f"{element[0]} --- {element[1]}")
+
+
+def delete_staff(dni) -> str:
+    staff = my_db.Staff()
+    staff.dni = dni
+    if dni in update_staff().keys():
+        print(staff.delete_staff())
+    else:
+        print(f"Error, {dni} no consta como Staff")
 
 
 def perfile_staff() -> None:
@@ -59,4 +70,29 @@ def perfile_staff() -> None:
         print("Error: No consta como staff")
 
 
-add_staff()
+def main() -> None:
+    print("Bienveido al asistente de credenciales Staff para my_cronos server")
+    check_exit = False
+    while not check_exit:
+        print("1-Añadir Trabajador a Staff")
+        print("2-Mostrar todos los Staff con su hash")
+        print("3-Validar staff")
+        print("4-Borrar staff")
+        print("0-Salir")
+        select = input("")
+        if int(select) == 1:
+            add_staff()
+        elif int(select) == 2:
+            for staff in update_staff().keys():
+                print(f"ID Staff: {staff}")
+        elif int(select) == 3:
+            perfile_staff()
+        elif int(select) == 4:
+            dni = input("Ponga el DNI que quiere borrar: ")
+            print(delete_staff(dni))
+        elif int(select) == 0:
+            check_exit = True
+
+
+if __name__ == "__main__":
+    main()
