@@ -3,6 +3,4 @@ my_cronos.db
 .gitignore
 modulos/__pycache__/__init__.cpython-311.pyc
 modulos/__pycache__/mi_db.cpython-311.pyc
-test_01.py
-
-
+modules/__pycache__/mi_db.cpython-311.pyc
