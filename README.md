@@ -15,7 +15,7 @@ My_Cronos is an application designed to facilitate the control of entry and exit
 
 ### 1. My_Cronos
 
-![My_Cronos](image.png)<br>
+![MyCronos](image.png)<br>
 My_Cronos is a numeric keypad that allows workers to enter their id turn entry to register their shift entry or exit. The id turn entry has a maximum of 8 digits and is used to validate the worker's identity.
 
 ### 2. Registry
