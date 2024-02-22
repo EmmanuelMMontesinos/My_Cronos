@@ -15,6 +15,22 @@ def verify_password(user, password) -> bool:
     return request.check_password()
 
 
+@server.route("/", methods=["GET"])
+def index() -> str:
+    comands = """
+        <h1>Welcome to Server from My Cronos</h1>
+        <h3>Commands for requests:</h3>
+        <p>http://127.0.0.1:8000/workers/ -> GET Return all workers
+        <p>http://127.0.0.1:8000/workers/dni/ -> GET  Return to the worker with this "dni"
+        <p>http://127.0.0.1:8000/workers/update/dni/ -> PUT Update a worker according to the "dni", "dni" and password of a staff member is required
+        <p>http://127.0.0.1:8000/new_worker/ -> POST Post a new employee, "dni" and password of a staff member is required
+        <p>http://127.0.0.1:8000/turns/ -> GET Returns all shifts worked, "dni" and password of a staff member is required
+        <p>http://127.0.0.1:8000/turns/dni/ -> GET Returns all shifts worked for the worker specified in "dni", "dni" and password of a staff member is required
+        <p>http://127.0.0.1:8000/delete/dni/ -> DELETE Delete a worker according to the "dni", "dni" and password of a staff member is required
+            """
+    return comands
+
+
 @server.route("/workers/", methods=['GET'])
 def send_all_workers() -> jsonify:
     """Send a json with all the workers in the workers table"""
