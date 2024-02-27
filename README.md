@@ -49,7 +49,8 @@ If you do not want to download the Release located in the right-hand section -->
 
 1. git clone <https://github.com/EmmanuelMMontesinos/My_Cronos>
 2. Navigate to the project directory: cd my_cronos
-3. Run the main application: python my_cronos.py
+3. run the dependency installer and python: install.bat in Windows or install.sh in Linux
+4. run the program you need (My Cronos,Registro...): My Cronos.bat in Windows or My Cronos.sh in Linux
 
 ## Usage
 
