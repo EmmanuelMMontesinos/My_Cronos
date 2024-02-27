@@ -7,6 +7,7 @@ __staff = {}
 def update_staff() -> dict:
     global __staff
     __staff = my_db.Staff.all_staff(self=my_db.Staff())
+    return __staff
 
 
 def check_worker(dni) -> list:
@@ -83,8 +84,12 @@ def main() -> None:
         if int(select) == 1:
             add_staff()
         elif int(select) == 2:
-            for staff in update_staff().keys():
-                print(f"ID Staff: {staff}")
+            try:
+                for staff in update_staff():
+                    print(f"ID Staff: {staff[0]}")
+                    print(f"Hash Staff: {staff[1]}")
+            except Exception as e:
+                print(F"Error: {e}")
         elif int(select) == 3:
             perfile_staff()
         elif int(select) == 4:
