@@ -49,14 +49,14 @@ If you do not want to download the Release located in the right-hand section -->
 
 1. git clone <https://github.com/EmmanuelMMontesinos/My_Cronos>
 2. Navigate to the project directory: cd my_cronos
-3. run the dependency installer and python: install.bat in Windows or install.sh in Linux
-4. run the program you need (My Cronos,Registro...): My Cronos.bat in Windows or My Cronos.sh in Linux
+3. run the dependency installer and python: install.bat in Windows
+4. run the program you need (My Cronos,Registro...): My Cronos.bat in Windows
 
 ## Usage
 
 After registering workers from the Management application:
 
-1. Open the my_cronos.py application to access the numeric keypad.
+1. Open the my_cronos.bat application to access the numeric keypad.
 2. Enter the worker's id turn entry (maximum 8 digits).
 3. Use the Registry application to view the shift history.
 4. Use the Management application to manage the worker database, including creation, viewing, and deletion of records.
