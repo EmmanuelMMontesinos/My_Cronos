@@ -166,7 +166,8 @@ def main():
     window_gestion = tk.Tk()
     window_gestion.title("")
     window_gestion.iconbitmap("gestion.ico")
-    window_gestion.configure(highlightbackground="blue", highlightthickness=2)
+    window_gestion.configure(
+        highlightbackground="blue", highlightthickness=2)
 
     ttk.Button(window_gestion, text="Agregar Trabajador",
                command=add_worker).pack(expand=True)
@@ -181,4 +182,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as e:
+        print(e)
+        input()

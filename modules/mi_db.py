@@ -1,7 +1,6 @@
 import sqlite3 as db
 from datetime import datetime
 import bcrypt
-import staff
 
 
 class Worker():

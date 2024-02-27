@@ -28,6 +28,16 @@ The Registry component provides various options for viewing the shift history of
 ![Management](image-2.png)<br>
 The Management application is essential for managing the worker database. It allows for creating new workers, viewing existing worker information, and deleting records from the database as needed. This functionality is crucial for the proper functioning of the system.
 
+### 4. Server
+
+![Server](image-3.png)<br>
+Server deploys a server for endpoint queries, for use with managers such as Postman.
+
+### 5. Staff
+
+![Server](image-4.png)<br>
+Staff is a terminal program for managing credentials on Server (Required for applications that need Staff privileges).
+
 ## Requirements
 
 - Python 3.10
