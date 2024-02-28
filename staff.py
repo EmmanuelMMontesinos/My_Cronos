@@ -51,10 +51,12 @@ def show_staff() -> str:
 def delete_staff(dni) -> str:
     staff = my_db.Staff()
     staff.dni = dni
-    if dni in update_staff().keys():
-        print(staff.delete_staff())
-    else:
-        print(f"Error, {dni} no consta como Staff")
+    list_staff = update_staff()
+    for staff_worker in list_staff:
+        if dni in staff_worker[0]:
+            print(f"{staff.delete_staff()}")
+        else:
+            print(f"Error, {dni} no consta como Staff")
 
 
 def perfile_staff() -> None:
@@ -94,7 +96,7 @@ def main() -> None:
             perfile_staff()
         elif int(select) == 4:
             dni = input("Ponga el DNI que quiere borrar: ")
-            print(delete_staff(dni))
+            delete_staff(dni)
         elif int(select) == 0:
             check_exit = True
 
