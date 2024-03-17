@@ -102,16 +102,19 @@ def one_workers():
     window_sni.mainloop()
 
 
-def select_path(filename="Turnos"):
+def select_path(filename="Turnos", dni=None):
     if filename == "":
         filename = "My_Cronos_Turns"
     path = filedialog.askdirectory()
-    save(path, filename)
+    save(path, filename, dni)
 
 
-def save(path, filename):
+def save(path, filename, dni=None):
     print(path)
-    pdf = mi_db.show_all_turns_all_workers()
+    if dni:
+        pdf = mi_db.show_all_turns_one_worker(dni)
+    else:
+        pdf = mi_db.show_all_turns_all_workers()
     pdf_conversor.create_pdf(
         filename=filename, info_data=pdf, path=path)
     messagebox.showinfo(
@@ -131,8 +134,22 @@ def info_all():
     window_info_all.mainloop()
 
 
-def info_one():
-    pass
+def info_one(window):
+    window_info_one = tk.Toplevel(window)
+    dni = ttk.Combobox(window_info_one, background="green")
+    list_all_workers_all_2 = []
+    list_all_workers_all = mi_db.Worker.show_all(
+        list_all_workers_all_2)
+    list_all_workers_all_2.append(
+        [x[0] for x in list_all_workers_all if x[1] not in list_all_workers_all_2])
+    dni.config(values=list_all_workers_all_2[0])
+    dni.pack()
+    ttk.Label(window_info_one, text="Guardar como:").pack()
+    filename = ttk.Entry(window_info_one, show="Turnos")
+    filename.pack()
+    ttk.Button(window_info_one, text="Carpeta",
+               command=lambda: select_path(filename.get(), dni.get())).pack()
+    window_info_one.mainloop()
 
 
 def main():
@@ -147,7 +164,7 @@ def main():
     ttk.Button(window, text="Informe Global de Trabajadores",
                command=info_all).pack()
     ttk.Button(window, text="Informe de Trabajador",
-               command=info_one).pack()
+               command=lambda: info_one(window)).pack()
     window.mainloop()
 
 
