@@ -1,7 +1,9 @@
 from datetime import datetime
 import tkinter as tk
+from tkinter import filedialog
 from tkinter import ttk, messagebox
 import modules.mi_db as mi_db
+import modules.export_pdf_excel as pdf_conversor
 
 
 def all_workers():
@@ -84,7 +86,7 @@ def datails_one_worker(dni):
     frm_show.pack()
 
 
-def one_trabajadores():
+def one_workers():
     """SELECT DNI window to show ONE worker the shifts."""
     window_sni = tk.Toplevel()
     dni = ttk.Combobox(window_sni, background="green")
@@ -100,6 +102,39 @@ def one_trabajadores():
     window_sni.mainloop()
 
 
+def select_path(filename="Turnos"):
+    if filename == "":
+        filename = "My_Cronos_Turns"
+    path = filedialog.askdirectory()
+    save(path, filename)
+
+
+def save(path, filename):
+    print(path)
+    pdf = mi_db.show_all_turns_all_workers()
+    pdf_conversor.create_pdf(
+        filename=filename, info_data=pdf, path=path)
+    messagebox.showinfo(
+        "PDF guardado", f"El informe en PDF ha sido guardado en {path}/{filename}")
+
+
+def info_all():
+    window_info_all = tk.Toplevel()
+    ttk.Label(window_info_all, text="Guardar como:").pack()
+    filename = ttk.Entry(window_info_all)
+    filename.pack()
+    path = ttk.Button(window_info_all, text="Carpeta",
+                      command=lambda: select_path(filename.get()))
+
+    path.pack()
+
+    window_info_all.mainloop()
+
+
+def info_one():
+    pass
+
+
 def main():
     window = tk.Tk()
     window.title("")
@@ -108,7 +143,11 @@ def main():
     ttk.Button(window, text="Mostrar Registro Global",
                command=all_workers).pack()
     ttk.Button(window, text="Mostrar Registro de Trabajador",
-               command=one_trabajadores).pack()
+               command=one_workers).pack()
+    ttk.Button(window, text="Informe Global de Trabajadores",
+               command=info_all).pack()
+    ttk.Button(window, text="Informe de Trabajador",
+               command=info_one).pack()
     window.mainloop()
 
 

@@ -9,6 +9,7 @@ pyinstaller = "*"
 flask = "*"
 flask-httpauth = "*"
 bcrypt = "*"
+reportlab = "*"
 
 [dev-packages]
 
