@@ -1,5 +1,5 @@
 @echo off
 
-python gestion.py
+python ./gestion.py
 
 

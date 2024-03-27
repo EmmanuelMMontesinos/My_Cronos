@@ -1,4 +1,4 @@
 @echo off
 
-python registro.py
+python ./registro.py
 
