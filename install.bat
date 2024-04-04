@@ -1,22 +1,28 @@
 @echo off
 
-REM Verificar si Python está instalado
-where python >nul 2>&1
-if %ERRORLEVEL% NEQ 0 (
-    echo Instalando Python...
-    REM Descargar instalador de Python
-    bitsadmin /transfer pythonInstaller https://www.python.org/ftp/python/3.8.12/python-3.8.12.exe "%CD%\python-installer.exe"
-    REM Instalar Python
-    %CD%\python-installer.exe /quiet
-)
 
-REM Verificar si Pipenv está instalado
-where pipenv >nul 2>&1
-if %ERRORLEVEL% NEQ 0 (
-    echo Instalando Pipenv...
-    REM Instalar Pipenv
-    python -m pip install pipenv
-)
 
-REM Instalar las dependencias del proyecto
-pipenv install
+echo Instalando Python
+curl -o python-installer.exe https://www.python.org/ftp/python/3.9.7/python-3.9.7-amd64.exe || call :Error "Error al descargar Python"
+python-installer.exe /quiet TargetDir=C:\Python InstallAllUsers=1 PrependPath=1 || call :Error "Error al instalar Python"
+del python-installer.exe
+
+echo -------------------------------------------
+echo Instalando Pip
+python -m ensurepip --upgrade || call :Error "Error al instalar Pip"
+echo -------------------------------------------
+
+
+echo Instalando dependencias: pillow,bcrypt,reportlab,flask,flask_httpauth
+pip install pillow
+pip install bcrypt
+pip install reportlab
+pip install flask
+pip install flask_httpauth
+echo -------------------------------------------
+echo pillow,bcrypt,reportlab,flask,flask_httpauth
+echo -------------------------------------------
+
+
+echo Instalacion completa.
+pause
