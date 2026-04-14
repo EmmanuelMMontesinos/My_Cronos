@@ -67,11 +67,11 @@
         },
         "click": {
             "hashes": [
-                "sha256:12ff4785d337a1bb490bb7e9c2b1ee5da3112e94a8622f26a6c77f5d2fc6842a",
-                "sha256:981153a64e25f12d547d3426c367a4857371575ee7ad18df2a6183ab0545b2a6"
+                "sha256:14162b8b3b3550a7d479eafa77dfd3c38d9dc8951f6f69c78913a8f9a7540fd5",
+                "sha256:1924d2c27c5653561cd2cae4548d1406039cb79b858b747cfea24924bbc1616d"
             ],
             "markers": "python_version >= '3.10'",
-            "version": "==8.3.1"
+            "version": "==8.3.2"
         },
         "colorama": {
             "hashes": [
@@ -92,11 +92,11 @@
         },
         "flask-httpauth": {
             "hashes": [
-                "sha256:66568a05bc73942c65f1e2201ae746295816dc009edd84b482c44c758d75097a",
-                "sha256:a58fedd09989b9975448eef04806b096a3964a7feeebc0a78831ff55685b62b0"
+                "sha256:0080393d70e12327781f7509115175ec5e47209816489a620d4fd39e20cea2e8",
+                "sha256:88499b22f1353893743c3cd68f2ca561c4ad9ef75cd6bcc7f621161cd0e80744"
             ],
             "index": "pypi",
-            "version": "==4.8.0"
+            "version": "==4.8.1"
         },
         "itsdangerous": {
             "hashes": [
@@ -279,11 +279,11 @@
         },
         "werkzeug": {
             "hashes": [
-                "sha256:210c6bede5a420a913956b4791a7f4d6843a43b6fcee4dfa08a65e93007d0d25",
-                "sha256:7ddf3357bb9564e407607f988f683d72038551200c704012bb9a4c523d42f131"
+                "sha256:63a77fb8892bf28ebc3178683445222aa500e48ebad5ec77b0ad80f8726b1f50",
+                "sha256:9bad61a4268dac112f1c5cd4630a56ede601b6ed420300677a869083d70a4c44"
             ],
             "markers": "python_version >= '3.9'",
-            "version": "==3.1.6"
+            "version": "==3.1.8"
         }
     },
     "develop": {}
